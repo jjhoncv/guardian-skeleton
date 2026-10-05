@@ -1,0 +1,40 @@
+# Solo del repo guardian-skeleton (nuevo-proyecto.sh no lo copia): instancia el esqueleto con un nombre de
+# ejemplo y corre todo lo que correría un proyecto recién creado.
+name: Validar esqueleto
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    name: validar esqueleto
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Instanciar con un proyecto de ejemplo
+        run: |
+          grep -rl '__\(NOMBRE\|SLUG\|REPO\|SITIO\|GUARDIAN\)__' --exclude-dir=.git . | while read -r f; do
+            sed -i -e 's|__NOMBRE__|Proyecto de ejemplo|g' -e 's|__SLUG__|proyecto-de-ejemplo|g' \
+                   -e 's|__REPO__|jjhoncv/proyecto-de-ejemplo|g' -e 's|__SITIO__|proyecto-de-ejemplo-jjhoncv|g' \
+                   -e 's|__GUARDIAN__|v0.0.0|g' "$f"
+          done
+          if grep -rn '__[A-Z]*__' --exclude-dir=.git .; then echo "Quedaron marcadores sin reemplazar"; exit 1; fi
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
