@@ -1,9 +1,9 @@
 ---
-name: planificar
-description: Convierte el alcance del proyecto en escenarios BDD en rojo y un plan de tareas aprobado por PR. Si PROYECTO.md está en blanco, primero entrevista al dueño y lo redacta. Úsala al empezar un proyecto creado con la plantilla Guardián, o cuando el dueño cambie el alcance.
+name: guardian-planificar
+description: Pasos 3 y 4 del ciclo de vida del Guardián, dentro de un proyecto. Convierte el alcance (PROYECTO.md) en escenarios BDD en rojo y un plan de tareas aprobado por PR; al fusionarlo se crean los tickets. Úsala al empezar un proyecto creado con nuevo-proyecto.sh, o cuando el dueño cambie el alcance.
 ---
 
-# /planificar — del alcance a escenarios y tickets
+# /guardian-planificar — del alcance a escenarios y tickets
 
 Reglas que no se negocian (PROYECTO.md y ADR 0019):
 - **El dueño decide el alcance.** Tú preguntas, propones y redactas; no inventas funcionalidades.
@@ -16,10 +16,10 @@ Reglas que no se negocian (PROYECTO.md y ADR 0019):
 
 Lee `PROYECTO.md`. Está **en blanco o incompleto** si conserva textos de la plantilla como «Qué duele hoy y a quién.», `<nombre>`, `<entregable>`, `Escenario: <nombre>`, o si no tiene criterios de aceptación en Gherkin.
 
-- En blanco → **Paso 2 (entrevista)**.
+- En blanco → lo normal es definirlo antes con **`/guardian-idea`** en el repo del Guardián. Si el dueño prefiere hacerlo aquí → **Paso 2 (entrevista de respaldo)**.
 - Completo → **Paso 3 (planificar)**.
 
-## Paso 2 — Entrevista (solo si hace falta)
+## Paso 2 — Entrevista de respaldo (solo si el alcance está en blanco)
 
 Una sección por vez, preguntas cortas, en el idioma del dueño. Después de cada respuesta, resume en una línea y sigue.
 
@@ -78,8 +78,8 @@ más el total: «N escenarios en rojo, M tareas, K fases». **Espera su OK.**
 1. Rama `docs/plan-<slug-de-la-fase>` desde `main`.
 2. Escribe los `.feature` y `plan/tareas.json` (y `PROYECTO.md` si hubo entrevista).
 3. Verifica:
-   - `npm run build && npm run e2e` → los escenarios nuevos aparecen **pendientes** (saltados) y nada falla.
-   - El CI del PR **valida el plan** (máximo 5 fases, cada tarea con escenario) y publica el avance: debe arrancar en 0 %.
+   - `node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/crear-tickets.ts plan/tareas.json --validar` → sin errores.
+   - `npm run build && npm run e2e && npm run avance` → los escenarios nuevos aparecen **pendientes** y el avance arranca en 0 %.
 4. Commit y PR con título `docs(plan): <resumen>` (Conventional Commits). En el cuerpo: la tabla del Paso 4 y «Al fusionar este PR se crean M tickets (workflow *Tickets del plan*)».
 5. Dile al dueño qué revisar en el PR y que **fusionarlo = aprobar el plan**.
 
