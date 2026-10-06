@@ -18,6 +18,13 @@ Se creó con **[Guardián](https://github.com/jjhoncv/guardian)** (`guardian-ske
 7. Nunca hagas merge a `main` ni despliegues a producción. Eso lo aprueba <Dueño>.
 8. Toda decisión técnica relevante va como ADR corta en `docs/decisiones/`.
 
+## Cuando trabajas en la nube (GitHub Actions)
+- Te activa un `@claude` del dueño en un ticket, o el Guardián al fusionarse un PR (siguiente ticket de la fase).
+- Rama `feat/<n>-<slug>` desde `main`; pruebas primero; corre `npm run lint`, `npm run typecheck`, `npm test`, `npm run build` y `npm run e2e` antes de abrir el PR.
+- Abre el PR con `gh pr create`: título `feat(#<n>): …` (Conventional Commits) y en el cuerpo `Closes #<n>`, el escenario que pone en verde y cómo probarlo.
+- Si el ticket necesita algo del dueño (cuentas, credenciales, decisiones) que no está, **no lo inventes**: coméntalo en el ticket y termina sin PR.
+- No puedes aprobar ni fusionar: eso lo hace el dueño.
+
 ## Stack (heredado de la plantilla)
 - Next.js 16 + TypeScript, Node 24 (`.nvmrc`), npm
 - Vitest (TDD) para unidades; BDD + E2E con playwright-bdd: `features/*.feature` (Gherkin en español) y pasos en `features/steps/`
