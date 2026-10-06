@@ -6,7 +6,7 @@
 
 <Qué es, en una frase.>
 
-- **Fase actual:** — (corre `/planificar`)
+- **Fase actual:** — (corre `/guardian`)
 - **Staging:** https://staging--__SITIO__.netlify.app
 - **Producción:** https://__SITIO__.netlify.app
 - **Alcance:** [`PROYECTO.md`](PROYECTO.md) · **Decisiones:** [`docs/decisiones/`](docs/decisiones/README.md) · **Tablero:** pestaña *Projects* del repo
@@ -15,7 +15,7 @@ Creado con **[Guardián](https://github.com/jjhoncv/guardian)** __GUARDIAN__: al
 
 ## Empezar
 
-1. Abre Claude Code en este repo y corre **`/planificar`**: te entrevista, redacta `PROYECTO.md` y abre un PR con los escenarios BDD (en rojo) y el plan de tareas.
+1. Abre Claude Code en este repo y corre **`/guardian`** (estado y siguiente paso) y **`/guardian-planificar`**: convierte el alcance de `PROYECTO.md` en escenarios BDD (en rojo) y un plan de tareas, y abre un PR.
 2. Revisa y fusiona ese PR: se crean los tickets (uno por tarea) y entran al tablero.
 3. Cada ticket → rama → PR chico → preview → merge → staging. Releases con tu aprobación → producción.
 

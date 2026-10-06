@@ -19,7 +19,15 @@ Lo que alguien podría esperar y queda fuera a propósito.
 
 Qué cambia para el usuario cuando esto está en producción.
 
-## 5. Fases (máximo 5)
+## 5. Cómo sé que funcionó
+
+Algo medible y con plazo (p. ej. «5 personas comentan en 2 semanas»). Al cerrar la última fase se compara contra esto.
+
+## 6. Límites
+
+Semanas disponibles, presupuesto y cuentas externas que hacen falta.
+
+## 7. Fases (máximo 5)
 
 Cada fase es un entregable usable en producción.
 
@@ -28,7 +36,7 @@ Cada fase es un entregable usable en producción.
 
 **Valor:** <qué se puede hacer al cerrar la fase>
 
-## 6. Criterios de aceptación
+## 8. Criterios de aceptación
 
 ```gherkin
 Escenario: <nombre>
@@ -39,11 +47,11 @@ Escenario: <nombre>
 
 El avance del proyecto = % de estos escenarios en verde.
 
-## 7. Parking lot
+## 9. Parking lot
 
 - <idea> — <fecha> — <por qué no entra ahora>
 
-## 8. Decisiones tomadas
+## 10. Decisiones tomadas
 
 | Fecha | Decisión | Motivo |
 |---|---|---|

@@ -9,7 +9,7 @@ Se creó con **[Guardián](https://github.com/jjhoncv/guardian)** (`guardian-ske
 - Si algo no está en PROYECTO.md, **no lo hagas**: propónlo para el Parking lot y sigue.
 
 ## Cómo trabajas
-1. El alcance se convierte en escenarios y tareas con la skill **`/planificar`** (entrevista si hace falta; plan por PR). Antes de empezar una fase, muestra el plan de tareas y **espera aprobación**.
+1. **`/guardian`** muestra en qué paso está el proyecto y qué falta. El alcance se convierte en escenarios y tareas con **`/guardian-planificar`** (plan por PR; los tickets se crean al fusionarlo). Antes de empezar una fase, muestra el plan de tareas y **espera aprobación**.
 2. Una tarea = un GitHub Issue = una rama `feat/<n>-<slug>` (o `fix/`, `docs/`) = un PR chico.
 3. El **título del PR** es el commit que entra a `main` (squash): Conventional Commits con ticket, `feat(#12): ...`.
 4. Un solo cambio lógico por PR; idealmente menos de 300 líneas.
