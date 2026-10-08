@@ -27,6 +27,7 @@ Algo medible y con plazo (p. ej. «5 personas comentan en 2 semanas»). Al cerra
 
 Semanas disponibles, presupuesto y cuentas externas que hacen falta.
 
+- **Semanas:** N (en total; el Guardián las reparte en una fecha objetivo por fase).
 - **Tipo:** prueba / MVP rápido | producto. Define cuánto construir (Claude lo lee antes de cada ticket).
 
 ## 7. Fases (máximo 5)
