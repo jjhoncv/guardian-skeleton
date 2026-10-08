@@ -3,10 +3,13 @@
 [![CI](https://github.com/__REPO__/actions/workflows/ci.yml/badge.svg)](https://github.com/__REPO__/actions/workflows/ci.yml)
 [![Deploy](https://github.com/__REPO__/actions/workflows/deploy.yml/badge.svg)](https://github.com/__REPO__/actions/workflows/deploy.yml)
 [![Release](https://github.com/__REPO__/actions/workflows/release.yml/badge.svg)](https://github.com/__REPO__/actions/workflows/release.yml)
+[![Fase](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/__REPO__/estado/fase.json)](https://github.com/__REPO__/milestones)
+[![Avance](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/__REPO__/estado/avance.json)](https://github.com/__REPO__/actions/workflows/ci.yml)
+[![Salud](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/__REPO__/estado/salud.json)](https://github.com/__REPO__/actions/workflows/estado.yml)
 
 <Qué es, en una frase.>
 
-- **Fase actual:** — (corre `/guardian`)
+- **Fase, avance y salud:** los badges de arriba se actualizan solos en cada merge y una vez al día (🟢 al día · 🟡 atraso corto o un PR te espera · 🔴 atraso largo o `main` en rojo · ⚫ 14 días sin actividad). Requieren repo público; si es privado, mira el Sheet del Guardián
 - **Staging:** https://staging--__SITIO__.netlify.app
 - **Producción:** https://__SITIO__.netlify.app
 - **Alcance:** [`PROYECTO.md`](PROYECTO.md) · **Decisiones:** [`docs/decisiones/`](docs/decisiones/README.md) · **Tablero:** pestaña *Projects* del repo
