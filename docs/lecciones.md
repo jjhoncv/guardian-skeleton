@@ -26,7 +26,7 @@
 
 ## Según el stack (solo si el proyecto usa esa pieza)
 
-- **Netlify — redirecciones:** una redirección sin query conserva la query original; usa un destino con query propia. _Ej.: vitrina#24._
-- **Netlify — secretos de ejecución:** van en las variables del sitio, marcadas como secretas. GitHub Secrets solo si un workflow los usa. Dile al dueño exactamente cuáles y dónde.
-- **GitHub — diagramas Mermaid:** empieza con `%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 400}}}%%` y `wrappingWidth: 400` (sin las dos, GitHub corta el texto de las cajas largas) y usa `flowchart TD`, de arriba hacia abajo, para leerlo en el celular. _Ej.: vitrina#36._
+- **Netlify:** (1) una redirección sin query conserva la query original: usa un destino con query propia (vitrina#24). (2) Los secretos de ejecución van en las variables del sitio, marcadas como secretas; GitHub Secrets solo si un workflow los usa; dile al dueño cuáles y dónde. (3) Con el mismo valor para todos los contextos, **staging y producción comparten los datos** (la misma hoja, el mismo correo): en un MVP se acepta y se avisa; en un producto, valores distintos por contexto. (4) Cada PR tiene una URL de preview distinta: lo que exige una URL de retorno fija (OAuth, webhooks) no se puede probar ahí; se prueba en staging.
+- **GitHub — diagramas Mermaid:** empieza con `%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 400}}}%%` (sin esas dos opciones, GitHub corta el texto de las cajas largas) y usa `flowchart TD`, de arriba hacia abajo, para leerlo en el celular. _Ej.: vitrina#36._
 - **Gmail SMTP:** unos 500 correos por día y riesgo de spam; sirve para una prueba. Para un producto, un proveedor transaccional.
+- **Google Sheets como base de datos (MVP):** service account con rol **Lector** para leer y **Editor** solo si se escribe; escribe con `valueInputOption=RAW` (lo del usuario no se vuelve fórmula); pide el permiso de escritura solo al escribir; la pestaña o columna que falte no debe tumbar la página. Dile al dueño exactamente qué pestañas y encabezados crear. _Ej.: vitrina#2, #36._
