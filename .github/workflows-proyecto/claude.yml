@@ -1,6 +1,6 @@
 # Llama al workflow del Guardián (__GUARDIAN__). Para subir de versión, cambia el @vX.Y.Z (Dependabot lo propone).
 # Claude en la nube (ADR 0024 del Guardián): «@claude» del dueño en un ticket → PR; al fusionar un PR, Claude
-# toma solo el siguiente ticket de la fase (máximo 2 PRs suyos esperando revisión).
+# toma solo el siguiente ticket de la fase; al cerrar el dueño una fase (milestone), el primero de la siguiente (máximo 2 PRs suyos esperando revisión).
 name: Claude
 
 on:
@@ -9,6 +9,8 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
+  milestone:
+    types: [closed]
 
 permissions:
   contents: write
