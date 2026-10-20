@@ -35,6 +35,8 @@ Muestra el `PROYECTO.md` completo y **espera el OK** antes de seguir. Lo que el 
 
 ## Paso 3 — Planificar
 
+Si existe **`docs/convenciones.md`** (cómo programa el dueño), las tareas siguen su estructura y, si el proyecto repite un patrón (p. ej. módulos con admin), la **primera tarea construye el módulo de referencia completo** con sus pruebas; las siguientes lo copian.
+
 Antes de proponer el plan, **lee `docs/lecciones.md`**: lo que el plan le pida al dueño (cuentas, secretos, dónde cargarlos) tiene que seguir esas lecciones, porque se copia a cada ticket y Claude en la nube lo repite.
 
 **Escenarios** — un archivo por fase: `features/fase-<N>-<slug>.feature`.

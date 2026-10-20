@@ -32,13 +32,16 @@ Se creó con **[Guardián](https://github.com/jjhoncv/guardian)** (`guardian-ske
 - Si te pregunta algo, responde corto, en su idioma, y termina con lo que necesitas de él.
 
 ## Prioridad (cuando dos cosas chocan)
-**Objetivo del proyecto > alcance de la fase y del ticket > tipo de proyecto > lecciones.** Ninguna lección justifica salirse del ticket.
+**Objetivo del proyecto > alcance de la fase y del ticket > tipo de proyecto > convenciones del dueño > lecciones.** Ninguna lección ni convención justifica salirse del ticket. Si una convención choca con una lección de «Siempre» (seguridad), no elijas tú: dilo en el PR.
 
 ## Inicio y fin de cada ticket
 - **Inicio:** el ticket es de la fase actual, tiene escenario y no falta nada del dueño. Si algo de eso falla, coméntalo en el ticket y termina sin PR.
-- **Antes de escribir código:** lee `docs/lecciones.md` y aplica las que correspondan al tipo del proyecto y al stack.
+- **Antes de escribir código:** si existe `docs/convenciones.md`, léelo y síguelo al pie de la letra (estructura, nombres, patrones); después lee `docs/lecciones.md` y aplica las que correspondan al tipo del proyecto y al stack.
 - **Fin:** el escenario está en verde, el PR tiene menos de 300 líneas y lo que quedó fuera está anotado en el PR. **Termina ahí.**
 - **Sin círculos:** si el mismo problema falla dos veces seguidas, para y explícalo en el PR (qué probaste y qué necesitas).
+
+## Convenciones del dueño
+Si existe **`docs/convenciones.md`**, así programa el dueño y así programas tú: el dueño tiene que poder abrir tu código y modificarlo sin encontrar nada extraño. Lo que no esté ahí se copia del **módulo de referencia** que indique ese archivo; si tampoco está, pregunta en el PR en vez de inventar un patrón.
 
 ## Lecciones de revisión
 Están en **`docs/lecciones.md`**: criterio con alcance (siempre / según tipo / según stack) y su porqué. Los commits `(consultor)` en tus PRs traen cada lección nueva; no repitas esos errores.
