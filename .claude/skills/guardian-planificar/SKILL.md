@@ -65,8 +65,11 @@ Antes de proponer el plan, **lee `docs/lecciones.md`**: lo que el plan le pida a
 ```
 
 - Una tarea = **un PR chico** (idealmente < 300 líneas). Si no entra, pártela.
-- Ordena las tareas en el orden en que conviene hacerlas.
-- `necesita`: cuentas, credenciales o decisiones del dueño; vacío si nada.
+- Ordena las tareas en el orden en que conviene hacerlas: Claude toma la siguiente recién cuando el dueño fusiona la anterior, así que **el orden ya es la dependencia**.
+- **Proyecto con UI** (la página es lo que se vende o se usa): la **primera tarea es el boceto**: las pantallas principales completas con datos inventados, sin integraciones. Su preview es el boceto; el dueño pide cambios en el PR y **fusionarlo es aprobar el diseño**. Las tareas siguientes conectan los datos sobre ese diseño. _Ej.: chamba#3._
+- Trabajo sin escenario propio (boceto, configuración inicial) va **dentro de la primera tarea que lo necesita**, nunca como tarea aparte ni como trabajo fuera de un ticket.
+- `necesita`: solo lo que **entrega el dueño** (cuentas, credenciales, decisiones); vacío si nada. No pongas dependencias entre tareas: se publica en el issue como «Qué necesita del dueño».
+- Si una tarea va a pasar de 300 líneas por código generado (p. ej. componentes de shadcn/ui), dilo en el plan en vez de partirla sin preguntar.
 - **Si `plan/tareas.json` ya existe:** conserva los ids existentes y agrega las tareas nuevas con ids nuevos (los tickets ya creados no se repiten ni se borran).
 
 ## Paso 4 — Mostrar y esperar
