@@ -6,3 +6,4 @@ Esqueleto mínimo de un proyecto que usa el **[Guardián](https://github.com/jjh
 - `.github/workflows-proyecto/` → pasan a ser los `.github/workflows/` del proyecto (llamadas cortas a los workflows del Guardián).
 - `.github/workflows/validar.yml` y este archivo son **solo del esqueleto**: el script no los copia.
 - Cambios al esqueleto: por PR, con el check **validar esqueleto** en verde (instancia el esqueleto con un nombre de ejemplo y corre lint, typecheck, pruebas, build y E2E).
+- `opcional/mysql/` → solo para proyectos con base de datos (ADR 0029 del Guardián): `nuevo-proyecto.sh` lo copia a la raíz y agrega `base_de_datos: mysql` a los workflows; si no, lo borra.
