@@ -1,5 +1,6 @@
 # Llama al workflow del Guardián (__GUARDIAN__). Para subir de versión, cambia el @vX.Y.Z (Dependabot lo propone).
 name: Release
+run-name: "🏷️ Release · versión y producción (aprobación del dueño)"
 
 on:
   push:
