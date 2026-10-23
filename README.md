@@ -18,7 +18,7 @@ Creado con **[Guardián](https://github.com/jjhoncv/guardian)** __GUARDIAN__: al
 
 ## Empezar
 
-1. Abre Claude Code en este repo y corre **`/guardian`** (estado y siguiente paso) y **`/guardian-planificar`**: convierte el alcance de `PROYECTO.md` en escenarios BDD (en rojo) y un plan de tareas, y abre un PR.
+1. Abre Claude Code en este repo y corre **`/guardian`** (estado y siguiente paso) y **`/guardian-planificar`**: convierte el alcance de `PROYECTO.md` en escenarios BDD (en rojo) y un plan de tareas completas (historia, dependencias, 3 a 6 escenarios, reglas, diseño, datos y pruebas, para que Claude no adivine), y abre un PR.
 2. Revisa y fusiona ese PR: se crean los tickets (uno por tarea) y entran al tablero.
 3. Cada ticket → rama → PR chico → preview → merge → staging. Releases con tu aprobación → producción.
 

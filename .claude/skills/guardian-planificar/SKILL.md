@@ -11,6 +11,7 @@ Reglas que no se negocian (PROYECTO.md y ADR 0019):
 - **Máximo 5 fases.** Cada fase es un entregable usable en producción.
 - **Planifica todas las fases del `PROYECTO.md`**, con sus tareas y escenarios, aunque hoy solo se desarrolle la primera. El Guardián reparte las semanas de *Límites* entre **todas** las fases del plan para fijar la **fecha original** de cada una (la línea fija de la curva vs. el plan); si el plan trae solo la Fase 1, se le asignan todas las semanas y la curva queda mal. No hay riesgo de adelantarse: Claude no toma tickets de una fase que no está abierta.
 - **Sin escenario no hay tarea.** Cada tarea pone en verde al menos un escenario; cada escenario tiene una tarea.
+- **Ticket completo: Claude no adivina** (ADR 0031 del Guardián). Lo que no esté en el ticket, Claude lo inventa.
 - **Nada se crea sin aprobación:** primero muestras, después escribes, y todo entra por PR.
 
 ## Paso 1 — ¿Hay alcance?
@@ -54,32 +55,54 @@ Antes de proponer el plan, **lee `docs/lecciones.md`**: lo que el plan le pida a
   "fases": [{ "numero": 1, "nombre": "Lista básica", "entregable": "Agregar libros y marcarlos como leídos" }],
   "tareas": [
     {
-      "id": "T1",
+      "id": "T2",
       "fase": 1,
       "titulo": "Agregar un libro pendiente",
-      "escenarios": [{ "archivo": "features/fase-1-lista-basica.feature", "gherkin": "Escenario: Agregar un libro pendiente\n  Dado …\n  Cuando …\n  Entonces …" }],
+      "historia": "Como lector, quiero anotar un libro que quiero leer, para no olvidarlo.",
+      "depende": ["T1"],
+      "escenarios": [
+        { "archivo": "features/fase-1-lista-basica.feature", "gherkin": "Escenario: Agregar un libro pendiente\n  Dado …\n  Cuando …\n  Entonces …" },
+        { "archivo": "features/fase-1-lista-basica.feature", "gherkin": "Escenario: Me arrepiento antes de guardar\n  …" },
+        { "archivo": "features/fase-1-lista-basica.feature", "gherkin": "Escenario: El título es obligatorio\n  …\n  Entonces veo el mensaje \"Escribe el título\" y no se guarda nada" }
+      ],
       "que": "Qué se construye, en dos o tres líneas.",
-      "hecho": "El escenario «Agregar un libro pendiente» en verde.",
+      "reglas": ["El título es obligatorio (máx. 150).", "No se repite un título ya en la lista."],
+      "diseno": "Igual a `docs/maquetas/lista.html` (#agregar). Textos exactos: «Agregar libro», «Guardar», «Cancelar», «Libro agregado».",
+      "datos": "Tabla `books` (migración nueva: id, title, created_at).",
+      "pruebas": "Unitarias del modelo y del repositorio; los 3 escenarios en BDD y E2E; captura comparada con la maqueta.",
+      "fuera": "Importar desde Goodreads (Parking lot).",
+      "hecho": "Los 3 escenarios en verde.",
       "necesita": ""
     }
   ]
 }
 ```
 
+Qué lleva cada tarea:
+- **`historia`**: «Como <quién>, quiero <qué>, para <para qué>»: el para qué guía las decisiones chicas.
+- **`escenarios`: entre 3 y 6.** El **camino feliz**, al menos un **alternativo** (cancelar, lista vacía, segunda vez) y al menos un **error** (dato inválido, sin sesión, la base falla). Los textos que ve el usuario van **exactos** entre comillas. Estos escenarios detallan el criterio de `PROYECTO.md`, **no agregan funcionalidades**: si un caso pide algo nuevo, va al Parking lot. Más de 6 → parte la tarea.
+- **`depende`**: ids de las tareas que tienen que estar fusionadas antes. Claude no toma un ticket cuyas dependencias siguen abiertas.
+- **`reglas`**: lo que el código tiene que garantizar y no se ve en un escenario (límites, unicidad, «todo o nada», seguridad).
+- **`diseno`**: la maqueta y la vista exacta (`docs/maquetas/…#vista`), los estados (vacío, cargando, error, éxito) y los textos.
+- **`datos`**: tablas que lee o escribe, migraciones nuevas, archivos o servicios externos.
+- **`pruebas`**: qué pruebas se esperan además de los escenarios (unitarias, visuales).
+- **`fuera`**: lo que se parece pero **no** va en este ticket (y a qué ticket o al Parking lot va).
+- **`que`**, **`hecho`** y **`necesita`**, como siempre.
+
 - Una tarea = **un PR chico** (idealmente < 300 líneas). Si no entra, pártela.
-- Ordena las tareas en el orden en que conviene hacerlas: Claude toma la siguiente recién cuando el dueño fusiona la anterior, así que **el orden ya es la dependencia**.
+- Ordena las tareas en el orden en que conviene hacerlas y declara en **`depende`** las que necesitan otra fusionada: Claude toma la de número más bajo **cuyas dependencias ya estén cerradas**.
 - **Proyecto con UI** (la página es lo que se vende o se usa): la **primera tarea es el boceto**: las pantallas principales completas con datos inventados, sin integraciones. Su preview es el boceto; el dueño pide cambios en el PR y **fusionarlo es aprobar el diseño**. Las tareas siguientes conectan los datos sobre ese diseño, así que **el boceto es la UI final**: en el «qué» del boceto escribe el **nivel de diseño** que pide el `PROYECTO.md` (Límites → Tipo y lo que diga de la UI) y el estándar concreto (p. ej. en un producto: sin marcadores de posición, ilustraciones y portadas propias, logos de pago, jerarquía clara). Si el alcance no dice qué nivel de diseño quiere el dueño, **pregúntaselo** antes de proponer el plan. _Ej.: chamba#3, chamba#19._
 - Trabajo sin escenario propio (boceto, configuración inicial) va **dentro de la primera tarea que lo necesita**, nunca como tarea aparte ni como trabajo fuera de un ticket.
-- `necesita`: solo lo que **entrega el dueño** (cuentas, credenciales, decisiones); vacío si nada. No pongas dependencias entre tareas: se publica en el issue como «Qué necesita del dueño».
+- `necesita`: solo lo que **entrega el dueño** (cuentas, credenciales, decisiones); vacío si nada. Las dependencias entre tareas van en `depende`, no aquí: `necesita` se publica en el issue como «Qué necesita del dueño».
 - Si una tarea va a pasar de 300 líneas por código generado (p. ej. componentes de shadcn/ui), dilo en el plan en vez de partirla sin preguntar.
-- **Si `plan/tareas.json` ya existe:** conserva los ids existentes y agrega las tareas nuevas con ids nuevos (los tickets ya creados no se repiten ni se borran).
+- **Si `plan/tareas.json` ya existe:** conserva los ids existentes y agrega las tareas nuevas con ids nuevos (los tickets ya creados no se repiten ni se borran). **El plan es la fuente:** al fusionar, el cuerpo de los tickets **abiertos** se reescribe con lo que diga el plan; lo que se haya agregado a mano en un ticket se pierde, así que va al plan.
 
 ## Paso 4 — Mostrar y esperar
 
 Antes de escribir archivos, muestra al dueño:
 
-| Fase | Tarea | Escenarios |
-|---|---|---|
+| Fase | Tarea | Depende de | Escenarios (feliz · alternativos · errores) |
+|---|---|---|---|
 
 más el total: «N escenarios en rojo, M tareas, K fases». **Espera su OK.**
 
